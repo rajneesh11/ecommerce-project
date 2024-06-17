@@ -1,0 +1,588 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-IN style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b><span style='font-size:13.5pt;font-family:"Times New Roman",serif'>Software
+Requirements Specification (SRS) for E-commerce Platform Microservices</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>1.
+Introduction</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>1.1
+Purpose</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>The
+purpose of this document is to define the requirements for an e-commerce
+platform built using a microservices architecture. This document outlines the
+functionalities, performance, constraints, and interfaces for the system.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>1.2
+Scope</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>This
+e-commerce platform will enable users to browse products, manage shopping
+carts, place orders, process payments, and receive notifications. The system
+will be composed of multiple independent services, each responsible for a
+specific domain.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>1.3
+Definitions, Acronyms, and Abbreviations</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>API:</span></b><span
+     style='font-family:"Times New Roman",serif'> Application Programming
+     Interface</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>JWT:</span></b><span
+     style='font-family:"Times New Roman",serif'> JSON Web Token</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>SRS:</span></b><span
+     style='font-family:"Times New Roman",serif'> Software Requirements
+     Specification</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>REST:</span></b><span
+     style='font-family:"Times New Roman",serif'> Representational State
+     Transfer</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>gRPC:</span></b><span
+     style='font-family:"Times New Roman",serif'> Google Remote Procedure Call</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>CI/CD:</span></b><span
+     style='font-family:"Times New Roman",serif'> Continuous
+     Integration/Continuous Deployment</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>1.4
+References</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>REST API
+     Design Best Practices</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>OAuth2.0
+     Specification</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>GDPR
+     Compliance Guidelines</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.
+Overall Description</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.1
+Product Perspective</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>This
+e-commerce platform is an independent product that will be integrated with
+various third-party services for payment and notifications. It follows a
+microservices architecture to ensure scalability, maintainability, and ease of
+deployment.</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.2
+Product Functions</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>User
+     Registration and Authentication</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Product
+     Catalog Management</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Shopping
+     Cart Management</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Order
+     Processing</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Payment
+     Processing</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Notification
+     Management</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Inventory
+     Management</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Shipping
+     Calculation and Management</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Product
+     Reviews and Ratings</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.3
+User Classes and Characteristics</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>End
+     Users:</span></b><span style='font-family:"Times New Roman",serif'>
+     Customers who browse products and make purchases.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Administrators:</span></b><span
+     style='font-family:"Times New Roman",serif'> Users who manage the product
+     catalog, orders, and user accounts.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Customer
+     Support:</span></b><span style='font-family:"Times New Roman",serif'>
+     Users who assist customers with their inquiries and issues.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.4
+Operating Environment</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Frontend:</span></b><span
+     style='font-family:"Times New Roman",serif'> Modern web browsers, mobile
+     devices.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Backend:</span></b><span
+     style='font-family:"Times New Roman",serif'> Hosted on cloud
+     infrastructure (e.g., AWS, Azure, GCP).</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Database:</span></b><span
+     style='font-family:"Times New Roman",serif'> Various databases (MongoDB,
+     PostgreSQL, MySQL).</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>API
+     Gateway, Service Discovery, Configuration Management, Logging, and
+     Monitoring:</span></b><span style='font-family:"Times New Roman",serif'>
+     Managed through cloud-native tools.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.5
+Design and Implementation Constraints</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Must
+     comply with GDPR for user data protection.</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Ensure
+     high availability and scalability.</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Use
+     containerization (Docker) and orchestration (Kubernetes) for deployment.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>2.6
+Assumptions and Dependencies</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Reliable
+     internet connection for cloud services.</span></li>
+ <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Third-party
+     services (Stripe for payment, Twilio for notifications) are available and
+     reliable.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.
+Specific Requirements</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1
+Functional Requirements</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.1
+User Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Registration:</span></b><span
+     style='font-family:"Times New Roman",serif'> Users must be able to
+     register with an email and password.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Login:</span></b><span
+     style='font-family:"Times New Roman",serif'> Users must be able to log in
+     using their credentials.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Profile
+     Management:</span></b><span style='font-family:"Times New Roman",serif'>
+     Users must be able to update their profile information.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Authentication:</span></b><span
+     style='font-family:"Times New Roman",serif'> Implement JWT for secure user
+     authentication.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.2
+Product Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Product
+     Catalog:</span></b><span style='font-family:"Times New Roman",serif'>
+     Ability to add, update, delete, and view products.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Product
+     Search:</span></b><span style='font-family:"Times New Roman",serif'>
+     Search products by name, category, and price.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Product
+     Details:</span></b><span style='font-family:"Times New Roman",serif'> View
+     detailed information about a product.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.3
+Order Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Shopping
+     Cart:</span></b><span style='font-family:"Times New Roman",serif'> Add,
+     update, and remove items from the shopping cart.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Order
+     Creation:</span></b><span style='font-family:"Times New Roman",serif'>
+     Create orders from the shopping cart.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Order
+     History:</span></b><span style='font-family:"Times New Roman",serif'> View
+     past orders.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.4
+Payment Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Payment
+     Processing:</span></b><span style='font-family:"Times New Roman",serif'>
+     Integrate with Stripe to process payments.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Transaction
+     Management:</span></b><span style='font-family:"Times New Roman",serif'>
+     Record transaction details for each order.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.5
+Notification Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Order
+     Confirmation:</span></b><span style='font-family:"Times New Roman",serif'>
+     Send order confirmation via email/SMS.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Order
+     Status Updates:</span></b><span style='font-family:"Times New Roman",serif'>
+     Notify users about order status changes.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.6
+Inventory Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stock
+     Management:</span></b><span style='font-family:"Times New Roman",serif'> Track
+     product stock levels.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stock
+     Update:</span></b><span style='font-family:"Times New Roman",serif'>
+     Update stock levels based on orders and inventory changes.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.7
+Shipping Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Shipping
+     Calculation:</span></b><span style='font-family:"Times New Roman",serif'>
+     Calculate shipping costs based on the destination and product weight.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Shipping
+     Management:</span></b><span style='font-family:"Times New Roman",serif'>
+     Manage shipping details for orders.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.1.8
+Review Service</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Review
+     Submission:</span></b><span style='font-family:"Times New Roman",serif'>
+     Allow users to submit product reviews.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Review
+     Management:</span></b><span style='font-family:"Times New Roman",serif'>
+     Admins can manage (approve/delete) reviews.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Rating
+     System:</span></b><span style='font-family:"Times New Roman",serif'> Allow
+     users to rate products.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2
+Non-Functional Requirements</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.1
+Performance Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Response
+     Time:</span></b><span style='font-family:"Times New Roman",serif'> The
+     system should respond to user actions within 2 seconds.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Scalability:</span></b><span
+     style='font-family:"Times New Roman",serif'> The system must handle up to
+     10,000 concurrent users.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.2
+Security Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Data
+     Protection:</span></b><span style='font-family:"Times New Roman",serif'>
+     Ensure all sensitive data is encrypted in transit and at rest.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Authentication:</span></b><span
+     style='font-family:"Times New Roman",serif'> Use OAuth2.0 and JWT for
+     secure user authentication.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Authorization:</span></b><span
+     style='font-family:"Times New Roman",serif'> Implement role-based access
+     control.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.3
+Usability Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>User
+     Interface:</span></b><span style='font-family:"Times New Roman",serif'>
+     The UI should be intuitive and responsive across devices.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Accessibility:</span></b><span
+     style='font-family:"Times New Roman",serif'> The platform should comply
+     with WCAG 2.1 guidelines.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.4
+Reliability Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Uptime:</span></b><span
+     style='font-family:"Times New Roman",serif'> Ensure 99.9% uptime for the
+     platform.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Backup:</span></b><span
+     style='font-family:"Times New Roman",serif'> Regular data backups should
+     be performed.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.5
+Maintainability Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Code
+     Quality:</span></b><span style='font-family:"Times New Roman",serif'>
+     Follow best practices for code quality and documentation.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Microservices
+     Architecture:</span></b><span style='font-family:"Times New Roman",serif'>
+     Ensure services are loosely coupled and independently deployable.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.2.6
+Portability Requirements</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Deployment:</span></b><span
+     style='font-family:"Times New Roman",serif'> The system should be
+     deployable on any cloud platform.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Containerization:</span></b><span
+     style='font-family:"Times New Roman",serif'> Use Docker for
+     containerization of services.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.3
+External Interface Requirements</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.3.1
+User Interfaces</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Web
+     Interface:</span></b><span style='font-family:"Times New Roman",serif'>
+     Responsive web application for end-users.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Admin
+     Interface:</span></b><span style='font-family:"Times New Roman",serif'>
+     Web portal for administrators to manage the platform.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.3.2
+Hardware Interfaces</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Servers:</span></b><span
+     style='font-family:"Times New Roman",serif'> Cloud-based servers for
+     hosting the backend services.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Databases:</span></b><span
+     style='font-family:"Times New Roman",serif'> Cloud-hosted databases.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.3.3
+Software Interfaces</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Payment
+     Gateway:</span></b><span style='font-family:"Times New Roman",serif'>
+     Stripe API for payment processing.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Notification
+     Services:</span></b><span style='font-family:"Times New Roman",serif'> Twilio
+     API for sending SMS notifications.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Shipping
+     Services:</span></b><span style='font-family:"Times New Roman",serif'>
+     External shipping API for calculating shipping costs.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.3.4
+Communication Interfaces</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>REST/gRPC:</span></b><span
+     style='font-family:"Times New Roman",serif'> Services will communicate
+     using REST or gRPC protocols.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>API
+     Gateway:</span></b><span style='font-family:"Times New Roman",serif'>
+     NGINX or Kong will be used as the API Gateway.</span></li>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.4
+System Features</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.4.1
+User Registration and Authentication</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Description:</span></b><span
+     style='font-family:"Times New Roman",serif'> Allows users to register and
+     log in.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Priority:</span></b><span
+     style='font-family:"Times New Roman",serif'> High</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stimulus/Response
+     Sequences:</span></b><span style='font-family:"Times New Roman",serif'>
+     User registers -&gt; User receives confirmation email -&gt; User logs in
+     -&gt; System generates JWT.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Functional
+     Requirements:</span></b></li>
+ <ul type=circle>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Users
+      can register with email and password.</span></li>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Users
+      can log in with email and password.</span></li>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>System
+      generates and validates JWT for authenticated sessions.</span></li>
+ </ul>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.4.2
+Product Catalog Management</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Description:</span></b><span
+     style='font-family:"Times New Roman",serif'> Allows admins to manage the
+     product catalog.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Priority:</span></b><span
+     style='font-family:"Times New Roman",serif'> High</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stimulus/Response
+     Sequences:</span></b><span style='font-family:"Times New Roman",serif'>
+     Admin adds product -&gt; Product is listed in catalog -&gt; User searches
+     for product -&gt; Product details are displayed.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Functional
+     Requirements:</span></b></li>
+ <ul type=circle>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Admins
+      can add, update, and delete products.</span></li>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Users
+      can search and view products.</span></li>
+ </ul>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.4.3
+Order Processing</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Description:</span></b><span
+     style='font-family:"Times New Roman",serif'> Manages user orders from cart
+     to checkout.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Priority:</span></b><span
+     style='font-family:"Times New Roman",serif'> High</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stimulus/Response
+     Sequences:</span></b><span style='font-family:"Times New Roman",serif'>
+     User adds items to cart -&gt; User checks out -&gt; Order is created -&gt;
+     Payment is processed.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Functional
+     Requirements:</span></b></li>
+ <ul type=circle>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Users
+      can add, update, and remove items from the cart.</span></li>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>Users
+      can create orders from the cart.</span></li>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>System
+      processes payments and updates order status.</span></li>
+ </ul>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>3.4.4
+Notification Management</span></b></p>
+
+<ul type=disc>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Description:</span></b><span
+     style='font-family:"Times New Roman",serif'> Sends notifications to users.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Priority:</span></b><span
+     style='font-family:"Times New Roman",serif'> Medium</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Stimulus/Response
+     Sequences:</span></b><span style='font-family:"Times New Roman",serif'>
+     Order status changes -&gt; Notification is sent to user.</span></li>
+ <li class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>Functional
+     Requirements:</span></b></li>
+ <ul type=circle>
+  <li class=MsoNormal><span style='font-family:"Times New Roman",serif'>System
+      sends order confirmation and status updates via email/SMS.</span></li>
+ </ul>
+</ul>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>4.
+System Models</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>4.1 Use
+Case Diagram</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>(Create a
+diagram illustrating key use cases like user registration, product management,
+order processing, payment processing, and notifications.)</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>4.2
+Sequence Diagrams</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>(Create
+diagrams showing the interaction between services for key functionalities like
+user registration, order creation, and payment processing.)</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>4.3
+Data Flow Diagrams</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>(Create
+diagrams illustrating the data flow between services and databases.)</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>4.4
+Class Diagrams</span></b></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>(Create
+diagrams representing the structure of the major classes and their
+relationships within each microservice.)</span></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>5.
+Glossary</span></b></p>
+
+<p class=MsoNormal><b><span style='font-family:"Times New Roman",serif'>API:</span></b><span
+style='font-family:"Times New Roman",serif'> Application Programming Interface<br>
+<b>JWT:</b> JSON Web Token<br>
+<b>OAuth2.0:</b> An authorization framework<br>
+<b>REST:</b> Representational State Transfer<br>
+<b>gRPC:</b> Google Remote Procedure Call<br>
+<b>CI/CD:</b> Continuous Integration/Continuous Deployment<br>
+<b>WCAG:</b> Web Content Accessibility Guidelines</span></p>
+
+<p class=MsoNormal><span style='font-family:"Times New Roman",serif'>This SRS
+document provides a detailed blueprint for building an e-commerce platform
+using a microservices architecture. Each section outlines specific requirements
+and design considerations to guide the development process.</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
