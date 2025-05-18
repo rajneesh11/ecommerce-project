@@ -1,0 +1,32 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: ekart-order-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/ekart_user_db}
+    username: ${SPRING_DATASOURCE_USERNAME:ekart}
+    password: ${SPRING_DATASOURCE_PASSWORD:dev-password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://ekart-eureka-server.onrender.com/eureka
+    register-with-eureka: true
+    fetch-registry: true
+
+  instance:
+    prefer-ip-address: true
