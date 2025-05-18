@@ -31,6 +31,6 @@ jwt:
 server:
   port: 8080
 
-logging:
-  level:
-    java.lang.UnsatisfiedLinkError:
+#logging:
+#  level:
+#    java.lang.UnsatisfiedLinkError:
