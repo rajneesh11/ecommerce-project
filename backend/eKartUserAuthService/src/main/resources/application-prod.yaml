@@ -11,9 +11,9 @@ spring:
     import: optional:configserver:http://ekart-config-server.onrender.com
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
+    username: ekart
+    password: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
 #    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
