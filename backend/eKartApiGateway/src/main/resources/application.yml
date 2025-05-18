@@ -27,7 +27,6 @@ spring:
 
 jwt:
   secretkey: abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ
-  expiration: 3600000
 
 server:
   port: 8080

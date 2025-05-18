@@ -1,7 +1,7 @@
 # NOTE: This configuration is for DEV/STAGING environment on Render
 
 server:
-  port: 0
+  port: 8081
 
 spring:
   application:

@@ -1,115 +1,113 @@
 services:
-  # User Auth Service
-  - type: web
-    name: ekart-user-auth-service
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartUserAuthService
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
-      - key: SPRING_DATASOURCE_USERNAME
-        value: ekart
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
-
-  # Product Service
-  - type: web
-    name: ekart-product-service
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartProductService
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
-      - key: SPRING_DATASOURCE_USERNAME
-        value: ekart
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
-
-  # Order Service
-  - type: web
-    name: ekart-order-service
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartOrderService
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
-      - key: SPRING_DATASOURCE_USERNAME
-        value: ekart
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
-
-  # Payment Service
-  - type: web
-    name: ekart-payment-service
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartPaymentService
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
-      - key: SPRING_DATASOURCE_USERNAME
-        value: ekart
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
-
-  # Eureka Server
-  - type: web
-    name: ekart-eureka-server
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartEurekaServer
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-
-  # Config Server
-  - type: web
-    name: ekart-config-server
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
-    branch: main
-    rootDir: backend/eKartConfigServer
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
-    envVars:
-      - key: SPRING_PROFILES_ACTIVE
-        value: prod
-
-  # API Gateway
   - type: web
     name: ekart-api-gateway
-    env: java
-    repo: https://github.com/rajneesh11/ecommerce-project
+    env: docker
     branch: main
+    region: oregon
     rootDir: backend/eKartApiGateway
-    buildCommand: ./mvnw clean install
-    startCommand: java -jar target/*.jar
+    buildCommand: ./mvnw clean package
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod
+      # Add DB vars only if needed here
+
+  - type: web
+    name: ekart-config-server
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartConfigServer
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  - type: web
+    name: ekart-eureka-server
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartEurekaServer
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  - type: web
+    name: ekart-image-upload-service
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartImageUploadService
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+
+  - type: web
+    name: ekart-order-service
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartOrderService
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
+      - key: SPRING_DATASOURCE_USERNAME
+        value: ekart
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
+
+  - type: web
+    name: ekart-payment-service
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartPaymentService
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
+      - key: SPRING_DATASOURCE_USERNAME
+        value: ekart
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
+
+  - type: web
+    name: ekart-product-service
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartProductService
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
+      - key: SPRING_DATASOURCE_USERNAME
+        value: ekart
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
+
+  - type: web
+    name: ekart-user-auth-service
+    env: docker
+    branch: main
+    region: oregon
+    rootDir: backend/eKartUserAuthService
+    buildCommand: ./mvnw clean package
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
+      - key: SPRING_DATASOURCE_USERNAME
+        value: ekart
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
