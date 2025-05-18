@@ -15,5 +15,11 @@ public interface ProductService {
 
     ResponseEntity<ProductResponse> getProduct(UUID id);
 
-    ResponseEntity<ProductResponse> getProductList();
+    ResponseEntity<ProductResponse> getProductList(String email);
+
+    ResponseEntity<ProductResponse> searchProductByName(String name);
+
+    ResponseEntity<ProductResponse> searchProductByCategory(String category);
+
+    ResponseEntity<ProductResponse> searchProductByPriceRange(double low, double high);
 }

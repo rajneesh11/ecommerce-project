@@ -31,6 +31,11 @@ public class EkartUser {
     )
     private Set<Roles> roles = new HashSet<>();
     private String createdAt;
+//    @OneToOne
+//    @JoinColumn(name = "preferred_address_address_id")
+    @OneToOne
+    @JoinColumn(name = "preferred_address_id")
+    private PostalAddress preferredAddress;
 
     @PrePersist
     private void onCreate() {

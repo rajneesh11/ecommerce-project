@@ -14,14 +14,20 @@ public class GatewayConfig {
     private AuthenticationFilter filter;
 
     @Bean
-    public RouteLocator routeLocator(RouteLocatorBuilder builder){
+    public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route("auth-service",r->r.path("/api/auth/**")
-                        .filters(f->f.filter(filter))
+                .route("auth-service", r -> r.path("/api/auth/**")
+                        .filters(f -> f.filter(filter))
                         .uri("lb://auth-service"))
-                .route("product-service",r->r.path("/api/product/**")
-                        .filters(f->f.filter(filter))
+                .route("product-service", r -> r.path("/api/product/**")
+                        .filters(f -> f.filter(filter))
                         .uri("lb://product-service"))
+                .route("order-service", r -> r.path("/api/order/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://order-service"))
+                .route("image-upload-service", r -> r.path("/api/images/**")
+                        .filters(f -> f.filter(filter))
+                        .uri("lb://image-upload-service"))
                 .build();
     }
 }

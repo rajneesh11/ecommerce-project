@@ -40,7 +40,7 @@ public class ProductController {
     }
 
     @GetMapping("getProductList")
-    ResponseEntity<ProductResponse> getProductList() {
-        return service.getProductList();
+    ResponseEntity<ProductResponse> getProductList(@RequestHeader(value = "subject") String email) {
+        return service.getProductList(email);
     }
 }

@@ -34,5 +34,7 @@ public class Product {
     private String dimensions;
     private double rating;
     private UUID addedByUserId;
-    private String addedByUserEmail;
+    private String addedBySellerEmail;
+    private int addedQuantity = 1;
+    private boolean published = false;
 }

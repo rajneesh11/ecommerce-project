@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class JwtServiceImpl implements JwtService {
     @Value("${jwt.secretkey}")
     private String secretKey;
-    @Value("${jwt.expiration}")
-    private Long tokenExpiration;
+//    @Value("${jwt.expiration}")
+    private final Long tokenExpiration = 1000L * 60 * 60 * 12;
 
     @Override
     public String generateToken(UserDetails userDetails) {

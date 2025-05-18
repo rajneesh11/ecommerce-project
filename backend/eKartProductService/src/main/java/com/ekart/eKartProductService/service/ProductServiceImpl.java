@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -21,11 +22,13 @@ public class ProductServiceImpl implements ProductService {
     public ResponseEntity<ProductResponse> addProduct(Product product, String email) {
         if (product == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ProductResponse("Invalid Product data", HttpStatus.BAD_REQUEST.value()));
-        product.setAddedByUserEmail(email);
+                    .body(new ProductResponse(
+                            "Invalid Product data", HttpStatus.BAD_REQUEST.value()));
+        product.setAddedBySellerEmail(email);
         repository.save(product);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ProductResponse("Product added successfully", HttpStatus.CREATED.value()));
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ProductResponse(
+                        "Product added successfully", HttpStatus.OK.value()));
     }
 
     @Override
@@ -35,15 +38,18 @@ public class ProductServiceImpl implements ProductService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ProductResponse("Invalid Product ID", HttpStatus.BAD_REQUEST.value()));
         Product p = optional.get();
-        if(!p.getAddedByUserEmail().equals(email))
+        if (!p.getAddedBySellerEmail().equals(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ProductResponse("You cannot update this product", HttpStatus.BAD_REQUEST.value()));
+                    .body(new ProductResponse("You cannot update this product",
+                            HttpStatus.BAD_REQUEST.value()));
         if (product.getPrice() != null)
             p.setPrice(product.getPrice());
         if (product.getStockQuantity() != 0)
             p.setStockQuantity(product.getStockQuantity());
         if (product.getRating() != 0)
             p.setRating(product.getRating());
+        if (product.isPublished())
+            p.setPublished(true);
         repository.save(p);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ProductResponse("Product updated successfully", HttpStatus.OK.value()));
@@ -51,11 +57,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ResponseEntity<ProductResponse> deleteProduct(UUID id, String email) {
-        Optional<Product> optional = repository.findById(id);
+        Optional<Product> optional = repository.findByIdAndAddedBySellerEmail(id, email);
         if (optional.isEmpty())
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(new ProductResponse("Invalid Product ID", HttpStatus.BAD_REQUEST.value()));
-        if(!optional.get().getAddedByUserEmail().equals(email))
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ProductResponse("No Product with such ID and created by you", HttpStatus.NOT_FOUND.value()));
+        if (!optional.get().getAddedBySellerEmail().equals(email))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ProductResponse("You cannot delete this product", HttpStatus.BAD_REQUEST.value()));
 
@@ -69,19 +75,47 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> optional = repository.findById(id);
         if (optional.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ProductResponse("Invalid Product ID", HttpStatus.NOT_FOUND.value()));
+                    .body(new ProductResponse(
+                            "Invalid Product ID", HttpStatus.NOT_FOUND.value()));
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ProductResponse(optional.get(), "Product fetched successfully", HttpStatus.OK.value()));
+                .body(new ProductResponse(optional.get(),
+                        "Product fetched successfully", HttpStatus.OK.value()));
     }
 
     @Override
-    public ResponseEntity<ProductResponse> getProductList() {
-        List<Product> productList = repository.findAll();
+    public ResponseEntity<ProductResponse> getProductList(String email) {
+        List<Product> productList = repository.findByAddedBySellerEmail(email);
+        return getProductResponseResponseEntity(productList);
+    }
+
+    @Override
+    public ResponseEntity<ProductResponse> searchProductByName(String name) {
+        List<Product> productList = repository.findByNameLike(name);
+        return getProductResponseResponseEntity(productList);
+    }
+
+    @Override
+    public ResponseEntity<ProductResponse> searchProductByCategory(String category) {
+        List<Product> productList = repository.findByCategory(category);
+        return getProductResponseResponseEntity(productList);
+    }
+
+    @Override
+    public ResponseEntity<ProductResponse> searchProductByPriceRange(double low, double high) {
+        List<Product> productList = repository.findByPriceBetween(BigDecimal.valueOf(low),
+                BigDecimal.valueOf(high));
+        return getProductResponseResponseEntity(productList);
+    }
+
+    private ResponseEntity<ProductResponse> getProductResponseResponseEntity(List<Product> productList) {
         if (productList.isEmpty())
-            return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                    .body(new ProductResponse("No Product found", HttpStatus.NO_CONTENT.value()));
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ProductResponse("No Product found",
+                            HttpStatus.OK.value()));
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ProductResponse(productList, "Products fetched successfully", HttpStatus.OK.value()));
+                .body(new ProductResponse(productList,
+                        "Products fetched successfully",
+                        HttpStatus.OK.value()));
     }
 }
