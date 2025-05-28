@@ -12,9 +12,11 @@ spring:
 
   datasource:
     url: jdbc:postgresql://dpg-d0kueeogjchc73el9a3g-a.oregon-postgres.render.com:5432/ekartdb_rz47
-    username: ekart
-    password: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
-#    driver-class-name: org.postgresql.Driver
+#    username: ekart
+#    password: zATZzIfUryHlusKi5hbWjkez2ttFOWBO
+    username: ${SPRING_DATASOURCE_USERNAME:ekart}
+    password: ${SPRING_DATASOURCE_PASSWORD:zATZzIfUryHlusKi5hbWjkez2ttFOWBO}
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
 
