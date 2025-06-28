@@ -16,6 +16,7 @@ import {
 } from "../utils/demo/chartsData";
 import OrdersTable from "../components/OrdersTable";
 import axios from "axios";
+import { API_BASE_URL } from "../utils/config";
 
 function Dashboard() {
     const [newOrderCount, setNewOrderCount] = useState(0);
@@ -23,7 +24,7 @@ function Dashboard() {
         const fetchData = async () => {
             const jwtToken = localStorage.getItem("jwtToken");
             try {
-                const response = await axios.post("http://localhost:8080/api/order/orderListForSeller",
+                const response = await axios.post(`${API_BASE_URL}/api/order/orderListForSeller`,
                     null,
                     {
                         headers: {

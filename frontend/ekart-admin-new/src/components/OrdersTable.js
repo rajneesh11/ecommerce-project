@@ -3,6 +3,7 @@ import {
     TableBody, TableContainer, Table, TableHeader, TableCell, TableRow, TableFooter, Avatar, Badge, Pagination,
 } from "@windmill/react-ui";
 import axios from "axios";
+import { API_BASE_URL } from "../utils/config";
 
 const OrdersTable = ({resultsPerPage, filter}) => {
     const [page, setPage] = useState(1);
@@ -21,7 +22,7 @@ const OrdersTable = ({resultsPerPage, filter}) => {
     const loadOrders = async () => {
         const jwtToken = localStorage.getItem("jwtToken");
         try {
-            setResponse(await axios.post("http://localhost:8080/api/order/orderListForSeller",
+            setResponse(await axios.post(`${API_BASE_URL}/api/order/orderListForSeller`,
                 null,
                 {
                     headers: {

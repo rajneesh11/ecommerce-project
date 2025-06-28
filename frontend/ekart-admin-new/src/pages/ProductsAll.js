@@ -34,6 +34,7 @@ import {
 import Icon from "../components/Icon";
 import {genRating} from "../utils/genarateRating";
 import axios from "axios";
+import { API_BASE_URL } from "../utils/config";
 
 const ProductsAll = () => {
     const [view, setView] = useState("grid");
@@ -63,7 +64,7 @@ const ProductsAll = () => {
         const jwtToken = localStorage.getItem("jwtToken");
         try {
             const response = await axios.get(
-                "http://localhost:8080/api/product/getProductList",
+                `${API_BASE_URL}/api/product/getProductList`,
                 {
                     headers: {
                         Authorization: `Bearer ${jwtToken}`,
@@ -92,7 +93,7 @@ const ProductsAll = () => {
         const jwtToken = localStorage.getItem("jwtToken");
         try {
             const response = await axios.delete(
-                `http://localhost:8080/api/product/deleteProduct/${selectedDeleteProduct.id}`,
+                `${API_BASE_URL}/api/product/deleteProduct/${selectedDeleteProduct.id}`,
                 {
                     headers: {
                         Authorization: `Bearer ${jwtToken}`,

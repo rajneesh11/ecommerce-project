@@ -24,7 +24,9 @@ public class EKartUserServiceApplication implements CommandLineRunner {
         if (rolesList.isEmpty()) {
             Roles role1 = new Roles("ROLE_ADMIN");
             Roles role2 = new Roles("ROLE_USER");
-            roleRepository.saveAll(List.of(role1, role2));
+            Roles role3 = new Roles("ROLE_SELLER");
+            Roles role4 = new Roles("ROLE_CUSTOMER");
+            roleRepository.saveAll(List.of(role1, role2, role3, role4));
         }
     }
 }

@@ -17,6 +17,7 @@ import {
     Select,
     Textarea,
 } from "@windmill/react-ui";
+import { API_BASE_URL } from "../utils/config";
 
 const FormTitle = ({children}) => {
     return (
@@ -95,7 +96,7 @@ const AddProduct = () => {
 
             try {
                 return await axios.post(
-                    "http://localhost:8080/api/images/upload",
+                    `${API_BASE_URL}/api/images/upload`,
                     formData,
                     {
                         headers: {
@@ -121,7 +122,7 @@ const AddProduct = () => {
             const jwtToken = localStorage.getItem("jwtToken");
 
             const response = await axios.post(
-                "http://localhost:8080/api/product/addProduct",
+                `${API_BASE_URL}/api/product/addProduct`,
                 product,
                 {
                     headers: {

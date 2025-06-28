@@ -7,6 +7,7 @@ import response from "../utils/demo/productData";
 import { Card, CardBody, Badge, Button, Avatar } from "@windmill/react-ui";
 import { genRating } from "../utils/genarateRating";
 import axios from "axios";
+import { API_BASE_URL } from "../utils/config";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const SingleProduct = () => {
         const jwtToken = localStorage.getItem("jwtToken");
 
         const response = await axios.get(
-          `http://localhost:8080/api/product/getProduct/${id}`,
+          `${API_BASE_URL}/api/product/getProduct/${id}`,
           {
             headers: {
               Authorization: `Bearer ${jwtToken}`,

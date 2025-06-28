@@ -7,11 +7,12 @@ import { GithubIcon, TwitterIcon } from "../icons";
 import { Label, Input, Button } from "@windmill/react-ui";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { API_BASE_URL } from "../utils/config";
 
 const handleLogin = async (creds, history) => {
   try {
     const response = await axios.post(
-      "http://localhost:8080/api/auth/login",
+      `${API_BASE_URL}/api/auth/login`,
       creds
     );
     if (response.data && response.data.jwtToken) {
