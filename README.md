@@ -2,7 +2,7 @@
 # E-Commerce Platform
 
 ## Overview
-This document outlines the functional requirements for the E-Commerce Platform. The platform is divided into several services, each handling different aspects of the application. The services include User Service, Product Service, Order Service, Payment Service, Notification Service, Inventory Service, Shipping Service, and Review Service.
+This document, outlines the functional requirements for the E-Commerce Platform. The platform is divided into several services, each handling different aspects of the application. The services include User Service, Product Service, Order Service, Payment Service, Notification Service, Inventory Service, Shipping Service, and Review Service.
 
 ## Table of Contents
 1. [Functional Requirements](#functional-requirements)
