@@ -29,7 +29,7 @@ jwt:
   secretkey: abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 server:
-  port: 8080
+  port: 9000
 
 #logging:
 #  level:

@@ -2,9 +2,10 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://ekart:zATZzIfUryHlusKi5hbWjkez2ttFOWBO@dpg-d0kueeogjchc73el9a3g-a/ekartdb_rz47
-#    url: jdbc:postgresql://localhost:5432/ekart
+    url: jdbc:postgresql://localhost:5432/ekartdb
     driver-class-name: org.postgresql.Driver
+    username: ekart
+    password: mypassword
   jpa:
     hibernate:
       ddl-auto: update
